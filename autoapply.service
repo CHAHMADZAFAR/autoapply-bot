@@ -1,0 +1,17 @@
+[Unit]
+Description=AutoApply Bot Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/autoapply_bot
+ExecStart=/home/ubuntu/autoapply_bot/venv/bin/python src/main.py --config config/config.yaml --secrets config/secrets.yaml
+Restart=on-failure
+RestartSec=10
+Environment=PYTHONUNBUFFERED=1
+# Optional: Load AWS Creds from env if not using IAM Role
+# EnvironmentFile=/home/ubuntu/autoapply_bot/.env
+
+[Install]
+WantedBy=multi-user.target
